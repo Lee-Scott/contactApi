@@ -1,0 +1,66 @@
+To spin up a PostgreSQL container using Docker and connect it with your Spring Boot application, you'll need to ensure that the Docker command is set up correctly. Here’s how you can structure your command and some notes on your Spring Boot configuration.
+
+Docker Command
+You can use the following Docker command to run PostgreSQL:
+
+bash
+Copy code
+docker run --name some-postgres \
+  -e POSTGRES_USER=postgresuser \
+  -e POSTGRES_PASSWORD=securepassword \
+  -e POSTGRES_DB=testdatabase \
+  -p 5432:5432 \
+  -d postgres
+Explanation of the Command:
+--name some-postgres: Names the container for easy reference.
+-e POSTGRES_USER=postgresuser: Sets the PostgreSQL username.
+-e POSTGRES_PASSWORD=securepassword: Sets the password for the PostgreSQL user.
+-e POSTGRES_DB=testdatabase: Creates a database named testdatabase.
+-p 5432:5432: Maps the container's PostgreSQL port (5432) to your host's port (5432).
+-d postgres: Runs the PostgreSQL image in detached mode.
+Spring Boot Configuration
+Now, regarding your Spring Boot configuration, it seems mostly correct, but here's a streamlined version with corrections:
+
+yaml
+Copy code
+spring:
+  datasource:
+    url: jdbc:postgresql://192.168.1.216:5432/testdatabase
+    username: postgresuser
+    password: securepassword
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      globally_quoted_identifiers: true
+      format_sql: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+  mvc:
+    throw-exception-if-no-handler-found: true
+    async:
+      request-timeout: 3600000
+server:
+  port: 8080
+  error:
+    path: /user/error
+    whitelabel:
+      enabled: false
+Key Points:
+Dialect: Ensure you use the correct dialect. You had PosgreSQLInnoDBDialect, which is incorrect; it should be PostgreSQLDialect.
+Connection URL: Make sure the IP address 192.168.1.216 matches the host where your PostgreSQL container is running. If you run your Spring Boot app in the same Docker network, you might be able to use some-postgres as the host in the URL instead.
+Running Your Application
+Once your PostgreSQL container is up and running, you can start your Spring Boot application, and it should connect to the PostgreSQL database using the provided configuration.
+
+Note
+Ensure you have Docker installed and running.
+If you’re running the Spring Boot application outside of Docker, make sure your Docker network allows external connections. You may need to configure Docker's settings if you face connectivity issues.
+Let me know if you need further assistance!
+
+
+

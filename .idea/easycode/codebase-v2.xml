@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/contactApi/src/main/java/com/familyfirstsoftware/contactApi/domain/Contact.java;C:/Users/lhs49/Desktop/Playspace/contactApi/contactApi/src/main/java/com/familyfirstsoftware/contactApi/repo/ContactRepo.java;C:/Users/lhs49/Desktop/Playspace/contactApi/contactApi/src/main/java/com/familyfirstsoftware/contactApi/service/ContactService.java;C:/Users/lhs49/Desktop/Playspace/contactApi/contactApi/src/main/java/com/familyfirstsoftware/contactApi/ContactApiApplication.java;C:/Users/lhs49/Desktop/Playspace/contactApi/contactApi/src/test/java/com/familyfirstsoftware/contactApi/ContactApiApplicationTests.java;C:/Users/lhs49/Desktop/Playspace/contactApi/contactApi/pom.xml" />
+  </component>
+</project>

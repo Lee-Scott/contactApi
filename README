@@ -1,0 +1,19 @@
+start up new docker postgres with :
+docker run --name postgres-container -e POSTGRES_USER=postgresuser -e POSTGRES_PASSWORD=securepassword -e POSTGRES_DB=testdatabase -p 5432:5432 -d postgres
+
+or
+
+docker run --name postgres-container \
+  -e POSTGRES_USER=postgresuser \
+  -e POSTGRES_PASSWORD=securepassword \
+  -e POSTGRES_DB=testdatabase \
+  -p 5432:5432 \
+  -d postgres
+
+
+or
+
+start postgres-container
+
+To see if active:
+docker ps

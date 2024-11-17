@@ -1,4 +1,15 @@
 spring:
+  application:
+    name: contactApi
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}   # Use the environment variable for sensitive data
+      chat:
+        options:
+          model: gpt-4o           # Specify the AI model
+  weather:
+    api-key: ${WEATHER_API_KEY}  # Use the environment variable for sensitive data
+    api-url: http://api.weatherapi.com/v1
   datasource:
     url: jdbc:postgresql://localhost:5432/testdatabase
     username: postgresuser

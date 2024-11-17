@@ -6,10 +6,13 @@ import com.familyfirstsoftware.contactApi.repo.ContactRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -30,6 +33,8 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 public class ContactService {
 
     private final ContactRepo contactRepo;
+
+
 
     public Page<Contact> getAllContacts(int page, int size){
         return contactRepo.findAll(PageRequest.of(page, size, Sort.by("name")));

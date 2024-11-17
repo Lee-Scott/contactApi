@@ -12,6 +12,7 @@ docker run --name postgres-container \
 
 
 or
+docker start postgres-container
 
 start postgres-container
 

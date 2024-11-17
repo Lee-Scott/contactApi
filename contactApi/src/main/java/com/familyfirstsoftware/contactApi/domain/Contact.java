@@ -17,7 +17,6 @@ import org.hibernate.annotations.UuidGenerator;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT) // wont send default values in json
-@Table(name = "contact")
 public class Contact {
     @Id
     @UuidGenerator
@@ -31,3 +30,4 @@ public class Contact {
     private String status; // make enum
     private String photoUrl;
 }
+

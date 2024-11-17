@@ -24,11 +24,15 @@ import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 public class ContactResource {
     private final ContactService contactService;
 
+
+
     @PostMapping
     public ResponseEntity<Contact> createContact(@RequestBody Contact contact) {
         //return ResponseEntity.ok().body(contactService.createContact(contact));
         return ResponseEntity.created(URI.create("/contacts/userID")).body(contactService.createContact(contact));
     }
+
+
 
     @GetMapping
     public ResponseEntity<Page<Contact>> getContacts(@RequestParam(value = "page", defaultValue = "0") int page,
@@ -45,6 +49,8 @@ public class ContactResource {
     public ResponseEntity<String> uploadPhoto(@RequestParam("id") String id, @RequestParam("file")MultipartFile file) {
         return ResponseEntity.ok().body(contactService.uploadPhoto(id, file));
     }
+
+
 
 
 

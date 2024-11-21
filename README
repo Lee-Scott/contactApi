@@ -3,6 +3,7 @@
 # Backend for Contact API
 
 This is the backend API for the **Contact Management System**, built with **Spring Boot**. It uses **PostgreSQL** as the database and integrates with the OpenAI API.
+frontend at: https://github.com/Lee-Scott/contactapp
 
 ## Prerequisites
 
@@ -11,6 +12,7 @@ This is the backend API for the **Contact Management System**, built with **Spri
 - **Maven** for dependency management and project building
 - **Postman** or similar API testing tool for testing API endpoints
 - **OpenAI API key** stored as an environment variable
+- FRONTEND: https://github.com/Lee-Scott/contactapp
 
 ### Setup Instructions
 

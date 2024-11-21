@@ -1,20 +1,180 @@
-start up new docker postgres with :
-docker run --name postgres-container -e POSTGRES_USER=postgresuser -e POSTGRES_PASSWORD=securepassword -e POSTGRES_DB=testdatabase -p 5432:5432 -d postgres
+---
 
-or
+# Backend for Contact API
 
-docker run --name postgres-container \
-  -e POSTGRES_USER=postgresuser \
-  -e POSTGRES_PASSWORD=securepassword \
-  -e POSTGRES_DB=testdatabase \
-  -p 5432:5432 \
-  -d postgres
+This is the backend API for the **Contact Management System**, built with **Spring Boot**. It uses **PostgreSQL** as the database and integrates with the OpenAI API.
 
+## Prerequisites
 
-or
-docker start postgres-container
+- **Java 17+**
+- **PostgreSQL** running locally or remotely
+- **Maven** for dependency management and project building
+- **Postman** or similar API testing tool for testing API endpoints
+- **OpenAI API key** stored as an environment variable
 
-start postgres-container
+### Setup Instructions
 
-To see if active:
-docker ps
+#### 1. Clone the repository
+Clone the backend repository to your local machine:
+
+```bash
+git clone https://github.com/Lee-Scott/contactApi.git
+cd contactApi
+```
+
+#### 2. Configure PostgreSQL Database
+
+Ensure that you have a PostgreSQL instance running on your local machine or in a remote environment. You can use the following configuration for a local PostgreSQL setup:
+
+- **Database Name**: `contact_db`
+- **Username**: `postgres`
+- **Password**: `your_password`
+
+Update the `application.properties` file in the `src/main/resources/` directory with your database credentials. The database configuration should look like this:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/contact_db
+spring.datasource.username=postgres
+spring.datasource.password=your_password
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+```
+
+Make sure the PostgreSQL service is up and running before starting the Spring Boot application.
+
+#### 3. Set up the OpenAI API Key
+
+Make sure to store your OpenAI API key as an environment variable. This is used for accessing OpenAI's services from the backend.
+
+On Unix/Linux/macOS, you can set it with:
+
+```bash
+export OPENAI_API_KEY=your_openai_api_key
+```
+
+On Windows (using Command Prompt), you can set it with:
+
+```bash
+set OPENAI_API_KEY=your_openai_api_key
+```
+
+Make sure your OpenAI API key is stored correctly for the backend to interact with OpenAI services.
+
+#### 4. Build and Run the Backend
+
+To build and run the backend locally, follow these steps:
+
+1. **Build the project** with Maven:
+
+   ```bash
+   mvn clean install
+   ```
+
+2. **Run the Spring Boot application**:
+
+   ```bash
+   mvn spring-boot:run
+   ```
+
+   By default, the backend will run on `http://localhost:8080`.
+
+#### 5. Accessing the Hidden Description Field
+
+The backend exposes a hidden description field that is not visible through the normal API calls. You can access this field using **Postman** or any other HTTP client.
+
+- **Method**: `GET`
+- **Endpoint**: `/contact/{contactId}/description`
+- **Authentication**: None (public access, but requires Postman or similar)
+
+Make sure to replace `{contactId}` with the actual ID of the contact you want to retrieve the hidden description for. You can use this endpoint to inspect the hidden description of any contact stored in the database.
+
+#### 6. API Endpoints
+
+Here are some of the key API endpoints available:
+
+##### 1. Create a new contact
+- **Endpoint**: `/contacts`
+- **Method**: `POST`
+- **Request Body**:
+  ```json
+  {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "phone": "123-456-7890",
+      "address": "123 Main St, City, Country",
+      "title": "Spring Boot Developer",
+      "status": "active"
+       "description": "This field can be 1000 characters long and is hidden from the user. You can access it through the /contact/{contactId}/description endpoint."
+  }
+  ```
+
+##### 2. Get a contact by ID
+- **Endpoint**: `/contacts/{contactId}`
+- **Method**: `GET`
+
+##### 3. Update a contact
+- **Endpoint**: `/contacts/{contactId}`
+- **Method**: `PUT`
+- **Request Body**:
+  ```json
+  {
+      "name": "John Doe Updated",
+      "email": "john.doe.updated@example.com",
+      "phone": "123-456-7890",
+      "address": "123 Main St, New City, New Country",
+      "title": "Spring Boot Developer",
+      "status": "active"
+      "description": "This field can be 1000 characters long and is hidden from the user. You can access it through the /contact/{contactId}/description endpoint."
+  }
+  ```
+
+##### 4. Delete a contact
+- **Endpoint**: `/contacts/{contactId}`
+- **Method**: `DELETE`
+
+##### 5. List all contacts
+- **Endpoint**: `/contacts`
+- **Method**: `GET`
+
+This will return a list of all contacts stored in the database.
+
+#### 7. Frontend Integration
+
+The frontend for this project is available in a separate repository: [Frontend Repository](https://github.com/Lee-Scott/contactapp).
+
+Make sure to configure the frontend to interact with the backend by setting the correct API URL (`http://localhost:8080` by default).
+
+## Deployment
+
+Once you are ready to deploy the backend to production, make sure to:
+
+1. Set up a PostgreSQL instance in your cloud provider or other environment.
+2. Configure the database connection string (`spring.datasource.url`).
+3. Set up the OpenAI API key and other environment variables.
+4. Deploy the Spring Boot application to your desired platform (AWS, Heroku, etc.).
+
+### Troubleshooting
+
+If you face any issues with PostgreSQL, make sure the database is running and accessible. Also, check your environment variables to ensure the OpenAI API key is set correctly.
+
+If you encounter any issues related to dependencies or build failures, you can try running:
+
+```bash
+mvn clean validate
+```
+
+## Contributing
+
+If you would like to contribute to this project, feel free to fork the repository, make changes, and submit a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+### Notes:
+1. Make sure to replace the placeholders like `your_password` with actual values.
+2. The hidden description field is part of the API and can be accessed by making a `GET` request to the endpoint `/contact/{contactId}/description`.
+3. Make sure the frontend is properly configured to interact with this backend, especially the endpoints for retrieving and managing contacts.

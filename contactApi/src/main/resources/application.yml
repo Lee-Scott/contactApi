@@ -11,9 +11,9 @@ spring:
     api-key: ${WEATHER_API_KEY}  # Use the environment variable for sensitive data
     api-url: http://api.weatherapi.com/v1
   datasource:
-    url: jdbc:postgresql://localhost:5432/testdatabase
-    username: postgresuser
-    password: securepassword
+    url: jdbc:postgresql://localhost:5432/${DB_NAME}  # Use environment variables for database names and connections
+    username: ${DB_USERNAME}  # Externalize the database username
+    password: ${DB_PASSWORD}  # Externalize the database password
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true

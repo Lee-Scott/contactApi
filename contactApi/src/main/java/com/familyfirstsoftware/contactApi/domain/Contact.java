@@ -26,8 +26,12 @@ public class Contact {
     private String email;
     private String title;
     private String phone;
-    private String address; // make address class
-    private String status; // make enum
+    private String address; // TODO: make address class
+    private String status; // TODO:make enum
     private String photoUrl;
+
+    @Column(name = "description", length = 1000)
+    private String description;
+
 }
 

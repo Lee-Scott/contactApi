@@ -14,8 +14,10 @@
 	<name>contactApi</name>
 	<description>Contact API App</description>
 	<properties>
-		<java.version>23</java.version>
+		<java.version>21</java.version>
 		<spring-ai.version>1.0.0-M1</spring-ai.version>
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -72,15 +74,22 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>7.15.0</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>migrate</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
+					<url>jdbc:postgresql://localhost:5432/testdatabase</url>
+					<user>postgresuser</user>
+					<password>securepassword</password>
+					<baselineOnMigrate>true</baselineOnMigrate>
 				</configuration>
 			</plugin>
 		</plugins>

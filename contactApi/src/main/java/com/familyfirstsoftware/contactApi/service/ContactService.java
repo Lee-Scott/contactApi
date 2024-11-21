@@ -48,6 +48,11 @@ public class ContactService {
         return contactRepo.save(contact);
 
     }
+
+    public Contact updateContact(Contact contact) {
+        return contactRepo.save(contact);
+    }
+
     public String deleteContact(String id) {
         if (contactRepo.existsById(id)) {
             contactRepo.deleteById(id);
